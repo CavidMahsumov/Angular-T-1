@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div class="col-5 mx-auto">
+      <h3 class="bg-primary text-white p-3">{{ getName() }}'s list</h3>
+      <div class="input-group mb-3">
+        <input
+          #input
+          type="text"
+          class="form-control"
+          (keyup.enter)="addItem(input.value)"
+          input.value=""
+        />
+        <!-- (blur)="addItem(input.value)" -->
+        <button
+          class="btn btn-outline-primary"
+          (click)="addItem(input.value); input.value = ''"
+        >
+          Add
+        </button>
+      </div>
+      <h1>{{ displayAll }}</h1>
+      <div class="form-check mb-3">
+        <input
+          type="checkbox"
+          [(ngModel)]="displayAll"
+          class="form-check-input"
+          id="displayAll"
+        />
+        <label for="displayAll" class="form-check-label">Show All</label>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody #tbody>
+          <tr
+            (click)="ChangeColor(tbody, tr.style, item)"
+            #tr
+            *ngFor="let item of getItems(); let i = index"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.description }}</td>
+            <td #td (click)="changeAction(td)" *ngIf="item.action">Yes</td>
+            <td #td2 (click)="changeAction(td2)" *ngIf="!item.action">No</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="div1">
+        <div>
+          <h2>Description:</h2>
+          <input #i1 value="{{ desc }}" />
+        </div>
+
+        <div>
+          <h2>Action:</h2>
+          <input #i2 value="{{ act }}" />
+        </div>
+      </div>
+
+      <button
+        (click)="updateInfo(i1, i2)"
+        class="updatebtn"
+        class="btn btn-primary"
+      >
+        Update
+      </button>
+
+      <!-- <ul>
+            <li *ngFor="let item of items" >
+                {{item}}
+            </li>
+        </ul> -->
+    </div>
+  </div>
+</div>
